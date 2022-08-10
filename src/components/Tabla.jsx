@@ -27,11 +27,21 @@ const Tabla = () => {
         const obtenerDatos = async() =>{
             const {data} = await axios.get('https://api.datos.gob.mx/v1/condiciones-atmosfericas')
             setDatos(data.results)
+
+
+
+            
             setPaginacion(data.pagination)
         }
         obtenerDatos()
     }, [])
 
+
+    const colocarModar = () => {
+        setTimeout(() => {
+            
+        }, 2000);
+    }
     
 
   return (
@@ -80,11 +90,13 @@ const Tabla = () => {
                                 {dato.relativehumidity}
                             </td>
                             <td>
-                                {dato['date-insert']}
+                                {new Date(dato['date-insert']).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"})} 
                             </td>
                             { dato.probabilityofprecip > 60 || dato.relativehumidity > 50 ? <td>Si</td> : <td>no</td> }
                         </tr>
                     ))}
+            
+            
 
                 
             </tbody>
